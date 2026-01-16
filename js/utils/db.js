@@ -1,0 +1,60 @@
+import {openDB} from "idb";
+
+export class IndexedDB {
+    #db = null;
+
+    constructor(db) {
+        this.#db = db;
+    }
+
+    static async open(name, version, updated) {
+        if (!('indexedDB' in window)) {
+            throw new Error('IndexedDB не поддерживается браузером');
+        }
+
+        const db = await openDB(name, version, {
+            upgrade(db, oldVersion, newVersion) {
+                if (updated) {
+                    updated(db, oldVersion, newVersion);
+                }
+            }
+        });
+
+        return new IndexedDB(db);
+    }
+
+    get(collection, key) {
+        this.#initializationDB();
+        return this.#db.get(collection, key);
+    }
+
+    getAll(collection) {
+        this.#initializationDB();
+        return this.#db.getAll(collection);
+    }
+
+    post(collection, key, value) {
+        this.#initializationDB();
+        if (key !== undefined) {
+            this.#db.set(collection, key, value);
+        } else {
+            this.#db.set(collection, value);
+        }
+    }
+
+    delete(collection, key) {
+        this.#initializationDB();
+        return this.#db.delete(collection, key);
+    }
+
+    clean(collection) {
+        this.#initializationDB();
+        return this.#db.clean(collection);
+    }
+
+    #initializationDB() {
+        if (!this.#db) {
+            throw new Error('База данных не инициализирована');
+        }
+    }
+}
