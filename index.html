@@ -13,14 +13,12 @@
   </head>
   <body>
   <div class="page">
-
     <header class="header">
       <a class="header header-logo" href="index.html">
         <img src="assets/logo.svg" alt="logo"/>
       </a>
       <nav class="header__nav"></nav>
     </header>
-
     <main class="main">
       <section class="generator">
         <div class="generator-heading">
@@ -39,11 +37,31 @@
         </form>
       </section>
     </main>
-
     <footer class="footer">
       Учебный проект 2026
     </footer>
-
+  </div>
+  <div class="popup">
+    <div class="popup__overlay">
+      <div class="popup__content">
+        <div class="popup__header">
+          <div class="popup__close">
+            ❌
+          </div>
+          <p class="popup__title">
+            Ошибка: не удалось обработать JSON.
+          </p>
+        </div>
+        <div class="popup__body">
+          <p class="popup__description caption">
+            Проверьте формат данных и попробуйте снова.
+          </p>
+        </div>
+        <div class="popup__footer">
+          <button class="button button-secondary popup__button">Попробовать снова</button>
+        </div>
+      </div>
+    </div>
   </div>
     <script
       type="module"
